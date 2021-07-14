@@ -13,6 +13,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private PaintingsAdapter adapter;
 
     private final int REQUEST_DRAW_ACTIVITY = 1000;
-    public static Drawing drawingBackActivity = null;
+    public static Drawing drawingBackActivity = new Drawing();
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
             if (myDrawings.size()==0) {
+                adapter = new PaintingsAdapter(MainActivity.this,myDrawings);
                 recyclerView.setVisibility(View.GONE);
                 layout.setVisibility(View.VISIBLE);
             }
@@ -146,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         if (requestCode==REQUEST_DRAW_ACTIVITY) {
             if (drawingBackActivity!=null) {
+                Log.d("Name: ",drawingBackActivity.getName());
                 adapter.addDrawing(drawingBackActivity);
+                recyclerView.setAdapter(adapter);
                 recyclerView.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);
             }

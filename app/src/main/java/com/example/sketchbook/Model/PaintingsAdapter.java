@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +33,22 @@ public class PaintingsAdapter extends RecyclerView.Adapter<PaintingItemViewHolde
 
     // Click listener object created for recycler view item click
     private onItemClickListener itemClickListener;
+
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
+
+    public List<Drawing> getDrawingsList() {
+        return drawingsList;
+    }
+
+    public void setDrawingsList(List<Drawing> drawingsList) {
+        this.drawingsList = drawingsList;
+    }
 
     public PaintingsAdapter(Context context, List<Drawing> drawingsList) {
         this.context = context;
@@ -122,8 +140,11 @@ public class PaintingsAdapter extends RecyclerView.Adapter<PaintingItemViewHolde
         dialog.show();
     }
 
-    public void addDrawing(Drawing drawing) {
-        drawingsList.add(0,drawing);
+    public void addDrawing(Drawing drawingToAdd) {
+        Log.d("brfuer",drawingToAdd.getName());
+        Log.d("ewybgfyue",drawingsList.toString());
+        drawingsList.add(0,drawingToAdd);
+        Log.d("ewy ercfhefyue",drawingsList.toString());
         notifyDataSetChanged();
     }
 }

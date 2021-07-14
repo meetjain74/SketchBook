@@ -486,7 +486,7 @@ public class PaintActivity extends AppCompatActivity {
                 Toast.makeText(PaintActivity.this, "Saved", Toast.LENGTH_SHORT).show();
 
                 savedDrawing=drawing;
-                MainActivity.drawingBackActivity=drawing;
+                MainActivity.drawingBackActivity=savedDrawing;
                 savedStatus=true;
                 onceSaved=true;
             }
