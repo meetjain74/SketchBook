@@ -141,10 +141,7 @@ public class PaintingsAdapter extends RecyclerView.Adapter<PaintingItemViewHolde
     }
 
     public void addDrawing(Drawing drawingToAdd) {
-        Log.d("brfuer",drawingToAdd.getName());
-        Log.d("ewybgfyue",drawingsList.toString());
         drawingsList.add(0,drawingToAdd);
-        Log.d("ewy ercfhefyue",drawingsList.toString());
         notifyDataSetChanged();
     }
 }

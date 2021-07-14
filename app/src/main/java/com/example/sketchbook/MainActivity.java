@@ -114,15 +114,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void unused) {
             super.onPostExecute(unused);
+            adapter = new PaintingsAdapter(MainActivity.this,myDrawings);
+            adapter.setOnItemClickListener(new PaintingsAdapter.onItemClickListener() {
+                @Override
+                public void onItemClick(Drawing drawing) {
+                    Intent intent = new Intent(MainActivity.this,ViewActivity.class);
+                    ViewActivity.drawing = drawing;
+                    drawingBackActivity=null;
+                    startActivity(intent);
+                }
+            });
+
             if (myDrawings.size()==0) {
-                adapter = new PaintingsAdapter(MainActivity.this,myDrawings);
                 recyclerView.setVisibility(View.GONE);
                 layout.setVisibility(View.VISIBLE);
             }
             else {
                 recyclerView.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);
-                adapter = new PaintingsAdapter(MainActivity.this,myDrawings);
                 adapter.setOnLastDrawingDeleteListener(new PaintingsAdapter.onLastDrawingDeleteListener() {
                     @Override
                     public void onLastDrawingDeleted() {
@@ -130,17 +139,9 @@ public class MainActivity extends AppCompatActivity {
                         layout.setVisibility(View.VISIBLE);
                     }
                 });
-                adapter.setOnItemClickListener(new PaintingsAdapter.onItemClickListener() {
-                    @Override
-                    public void onItemClick(Drawing drawing) {
-                        Intent intent = new Intent(MainActivity.this,ViewActivity.class);
-                        ViewActivity.drawing = drawing;
-                        drawingBackActivity=null;
-                        startActivity(intent);
-                    }
-                });
-                recyclerView.setAdapter(adapter);
             }
+
+            recyclerView.setAdapter(adapter);
         }
     }
 
@@ -150,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             if (drawingBackActivity!=null) {
                 Log.d("Name: ",drawingBackActivity.getName());
                 adapter.addDrawing(drawingBackActivity);
-                recyclerView.setAdapter(adapter);
+                //recyclerView.setAdapter(adapter);
                 recyclerView.setVisibility(View.VISIBLE);
                 layout.setVisibility(View.GONE);
             }
