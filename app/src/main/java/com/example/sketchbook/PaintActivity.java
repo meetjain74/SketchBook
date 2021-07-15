@@ -64,8 +64,7 @@ public class PaintActivity extends AppCompatActivity {
     private ImageView share;
     private ImageView back;
     private final int REQUEST_PERMISSION_DOWNLOAD = 1001;
-    private final int REQUEST_PERMISSION_SAVE = 1002;
-    private final int REQUEST_PERMISSION_READ = 1003;
+    private final int REQUEST_PERMISSION_READ = 1002;
     private static final int PICK_IMAGE = 1000;
 
     //public static Drawing drawing = null;
@@ -122,18 +121,7 @@ public class PaintActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE)==
-                        PackageManager.PERMISSION_DENIED) {
-
-                    // Request for permissions
-                    requestPermissions(new String[]
-                            {Manifest.permission.WRITE_EXTERNAL_STORAGE},REQUEST_PERMISSION_SAVE);
-                }
-                // If permission granted
-                else {
-                    saveDrawing();
-                }
+                saveDrawing();
             }
         });
 
@@ -430,10 +418,6 @@ public class PaintActivity extends AppCompatActivity {
         if (requestCode == REQUEST_PERMISSION_DOWNLOAD &&
                 grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED) {
             downloadDrawing();
-        }
-        else if (requestCode == REQUEST_PERMISSION_SAVE &&
-                grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED) {
-            saveDrawing();
         }
         else if (requestCode == REQUEST_PERMISSION_READ) {
             if (grantResults.length>0 && grantResults[0]==PackageManager.PERMISSION_GRANTED) {
